@@ -9,9 +9,8 @@ export default function Navbar() {
   return (
     <header className="w-full bg-black py-4 px-6 shadow-md">
       <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
-        {/* الشعار */}
+        {/* LOGO */}
         <div className="flex items-center space-x-1">
-          {/* SVG الشعار هنا */}
           <svg
             width="200"
             height="25"
@@ -30,26 +29,26 @@ export default function Navbar() {
           </svg>
         </div>
 
-        {/* خيارات التنقل في الوسط */}
-        <div className="hidden md:flex flex-1 justify-center gap-8">
-          <a href="#" className="text-white text-lg hover:text-yellow-400">
+        {/* NAVBAR */}
+        <div className="hidden md:flex flex-1 justify-center gap-8 text-sm">
+          <a href="#" className="text-white hover:text-yellow-400">
             ACCEUIL
           </a>
-          <a href="#" className="text-white text-lg hover:text-yellow-400">
+          <a href="#" className="text-white  hover:text-yellow-400">
             FILMS
           </a>
-          <a href="#" className="text-white text-lg hover:text-yellow-400">
+          <a href="#" className="text-white hover:text-yellow-400">
             TV LIVES
           </a>
-          <a href="#" className="text-white text-lg hover:text-yellow-400">
+          <a href="#" className="text-white  hover:text-yellow-400">
             MES FAVORIS
           </a>
-          <a href="#" className="text-white text-lg hover:text-yellow-400">
+          <a href="#" className="text-white hover:text-yellow-400">
             APROPOS
           </a>
         </div>
 
-        {/* زر اللوقن على اليمين */}
+        {/*LOGIN */}
         <div className="hidden md:flex items-center gap-4">
           <button className="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">
             Login
@@ -61,7 +60,7 @@ export default function Navbar() {
           />
         </div>
 
-        {/* زر الهامبرغر للموبايل */}
+        {/* MENU */}
         <button
           onClick={() => setOpen(!isOpen)}
           className="text-white hover:text-amber-500 focus:outline-none md:hidden"
@@ -70,7 +69,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* القائمة المنسدلة للموبايل */}
+      {/* NAVBAR  */}
       {isOpen && (
         <nav className="mt-4 space-y-2 md:hidden">
           <a
