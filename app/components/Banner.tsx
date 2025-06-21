@@ -6,7 +6,7 @@ export default function Banner() {
   return (
     <>
       <section
-        className="w-full h-64 md:h-[400px] lg:h-[900px] bg-cover bg-center bg-no-repeat flex flex-col px-4 md:px-16 lg:px-8 "
+        className="w-full h-2/4 md:h-[400px] lg:h-[900px] bg-cover bg-center bg-no-repeat flex flex-col px-4 md:px-16 lg:px-8 "
         style={{ backgroundImage: "url('/banner.png')" }}
       >
         <div className="md:flex md:flex-col text-center md:text-left text-white md:max-w-3/4 gap-16 ">

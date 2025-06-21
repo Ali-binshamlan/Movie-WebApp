@@ -8,13 +8,15 @@ export enum MovieCategory {
   TOP_RATED = "top_rated",
   NOW_PLAYING = "now_playing",
   UPCOMING = "upcoming",
-  SIMILAR = "similar", // /movie/{movieId}/similar
+  SIMILAR = "similar", 
 }
 
 export interface Movie {
   id: number;
   title: string;
   poster_path: string;
+  vote_average: number;
+  overview: string;
 }
 
 interface FetchMoviesParams {
@@ -51,11 +53,37 @@ export async function fetchMovies({
       id: movie.id,
       poster_path: movie.poster_path,
       title: movie.title,
+      vote_average: movie.vote_average,
+      overview: movie.overview,
     }));
+    
 
     return movies;
   } catch (error) {
     console.error("Error fetching movies:", error);
     return [];
+  }
+}
+export async function fetchMovieDetails(movieId: number, language = "en-US"): Promise<Movie | null> {
+  try {
+    const url = `${BASE_URL}/movie/${movieId}`;
+    const response = await axios.get(url, {
+      params: {
+        api_key: API_KEY,
+        language,
+      },
+    });
+
+    const movie = response.data;
+    return {
+      id: movie.id,
+      title: movie.title,
+      poster_path: movie.poster_path,
+      vote_average: movie.vote_average,
+      overview: movie.overview,
+    };
+  } catch (error) {
+    console.error("Error fetching movie details:", error);
+    return null;
   }
 }

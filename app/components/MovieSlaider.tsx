@@ -1,43 +1,103 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { fetchMovies, Movie, MovieCategory } from "../services/movieService";
 
-interface MovieSlaiderProps {
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import { AiOutlineArrowRight } from "react-icons/ai";
+
+import "swiper/css";
+import "swiper/css/navigation";
+
+interface MovieSliderProps {
   category: MovieCategory;
   movieId?: number;
   title?: string;
 }
 
-export default function MovieSlaider({ category, movieId, title }: MovieSlaiderProps) {
+export default function MovieSlider({
+  category,
+  movieId,
+  title,
+}: MovieSliderProps) {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    async function loadMovies() {
-      const data = await fetchMovies({ type: category, movieId });
+    fetchMovies({ type: category, movieId }).then((data) => {
       setMovies(data);
-    }
-    loadMovies();
+      if (data.length > 0 && !selectedMovie) {
+        setSelectedMovie(data[0]);
+      }
+    });
   }, [category, movieId]);
 
   return (
-    <div className="container mt-10">
-      {title && <h3 className="text-4xl font-bold text-white mb-4">{title}</h3>}
-      <div className="flex overflow-x-auto gap-4 py-4 scrollbar-hide">
-        {movies.length === 0 && <p className="text-white">Loading movies...</p>}
-        {movies.map((movie) => (
-          <div
-            key={movie.id}
-            className="min-w-[300px] h-[170px] rounded-lg overflow-hidden shadow-lg"
+    <div className="container mt-10 relative">
+      {title && (
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-4xl font-bold text-white">{title}</h3>
+          <button
+            ref={nextRef}
+            className="text-white text-3xl p-2 bg-black/50 rounded-full hover:bg-white hover:text-black transition"
           >
+            <AiOutlineArrowRight />
+          </button>
+        </div>
+      )}
+      <Swiper
+        modules={[Navigation, Autoplay]}
+        navigation={{
+          nextEl: nextRef.current,
+          prevEl: null,
+        }}
+        onBeforeInit={(swiper) => {
+          if (typeof swiper.params.navigation !== "boolean") {
+            swiper.params.navigation.nextEl = nextRef.current;
+          }
+        }}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+        spaceBetween={16}
+        slidesPerView={3}
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+        }}
+      >
+        {movies.map((movie) => (
+          <SwiperSlide key={movie.id}>
             <img
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
-              className="w-full h-full object-center"
+              onClick={() => setSelectedMovie(movie)}
+              className="min-w-[300px] h-[170px] rounded-lg shadow-lg cursor-pointer"
             />
-          </div>
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
+      {selectedMovie && (
+        <section
+          className="w-full h-[500px] md:h-[600px] lg:h-[700px] flex flex-col justify-end p-8 bg-cover bg-no-repeat bg-center rounded-lg mb-10 mt-4"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${selectedMovie.poster_path})`,
+          }}
+        >
+          <div className="bg-black/60 p-6 rounded-lg max-w-2xl text-white">
+            <h2 className="text-4xl font-bold mb-2">{selectedMovie.title}</h2>
+            <p className="text-yellow-400 font-semibold text-lg mb-2">
+              ⭐ {selectedMovie.vote_average}
+            </p>
+            <p className="text-gray-300">{selectedMovie.overview}</p>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
