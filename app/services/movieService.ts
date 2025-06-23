@@ -87,3 +87,53 @@ export async function fetchMovieDetails(movieId: number, language = "en-US"): Pr
     return null;
   }
 }
+
+export interface Genre {
+  id: number;
+  name: string;
+}
+
+export async function fetchGenres(language = "en-US"): Promise<Genre[]> {
+  try {
+    const url = `${BASE_URL}/genre/movie/list`;
+    const response = await axios.get(url, {
+      params: {
+        api_key: API_KEY,
+        language,
+      },
+    });
+
+    return response.data.genres;
+  } catch (error) {
+    console.error("Error fetching genres:", error);
+    return [];
+  }
+}
+
+export async function fetchMoviesByGenre(genreId: number, page = 1, language = "en-US"): Promise<Movie[]> {
+  try {
+    const url = `${BASE_URL}/discover/movie`;
+    const response = await axios.get(url, {
+      params: {
+        api_key: API_KEY,
+        language,
+        with_genres: genreId,
+        page,
+      },
+    });
+
+    const movies: Movie[] = response.data.results.map((movie: any) => ({
+      id: movie.id,
+      poster_path: movie.poster_path,
+      title: movie.title,
+      vote_average: movie.vote_average,
+      overview: movie.overview,
+    }));
+
+    return movies;
+  } catch (error) {
+    console.error("Error fetching movies by genre:", error);
+    return [];
+  }
+}
+

@@ -5,7 +5,6 @@ import { fetchMovies, Movie, MovieCategory } from "../services/movieService";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import { AiOutlineArrowRight } from "react-icons/ai";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -39,13 +38,26 @@ export default function MovieSlider({
       {title && (
         <div className="container mx-auto px-4 flex items-center justify-between mb-4">
           <h3 className="text-4xl font-bold text-white">{title}</h3>
-          <button
-            ref={nextRef}
-            className="text-white text-3xl p-2 bg-black/50 rounded-full hover:bg-white hover:text-black transition"
-          >
-            <AiOutlineArrowRight />
-          </button>
         </div>
+      )}
+      {selectedMovie && (
+        <section
+          className="w-full h-[500px] md:h-[600px] lg:h-[550px] flex flex-col justify-end p-8 bg-no-repeat bg-center mt-4 relative overflow-hidden"
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${selectedMovie.poster_path})`,
+            backgroundSize: "cover",
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
+
+          <div className=" relative bg-black/60 p-6 rounded-lg max-w-2xl text-white">
+            <h2 className="text-4xl font-bold mb-2">{selectedMovie.title}</h2>
+            <p className="text-yellow-400 font-semibold text-lg mb-2">
+              ⭐ {selectedMovie.vote_average}
+            </p>
+            <p className="text-white">{selectedMovie.overview}</p>
+          </div>
+        </section>
       )}
       <Swiper
         className="container mx-auto px-4"
@@ -54,51 +66,39 @@ export default function MovieSlider({
           nextEl: nextRef.current,
           prevEl: null,
         }}
-        onBeforeInit={(swiper) => {
-          if (typeof swiper.params.navigation !== "boolean") {
-            swiper.params.navigation.nextEl = nextRef.current;
-          }
-        }}
         autoplay={{
           delay: 3000,
           disableOnInteraction: false,
         }}
+        onSlideChange={(swiper) => {
+          const newIndex = swiper.realIndex;
+          setSelectedMovie(movies[newIndex]);
+        }}
         loop={true}
-        spaceBetween={16}
-        slidesPerView={3}
+        spaceBetween={10}
+        slidesPerView={1}
         breakpoints={{
-          640: { slidesPerView: 2 },
-          768: { slidesPerView: 3 },
+          640: { slidesPerView: 1 },
+          768: { slidesPerView: 1 },
           1024: { slidesPerView: 4 },
         }}
       >
         {movies.map((movie) => (
           <SwiperSlide key={movie.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
+            <div
+              className="relative min-w-72 h-96 cursor-pointer shadow-lg"
               onClick={() => setSelectedMovie(movie)}
-              className="min-w-[300px] h-[170px] rounded-lg shadow-lg cursor-pointer"
-            />
+            >
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+                className="w-full h-full object-cover "
+              />
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/50 to-transparent  pointer-events-none" />
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      {selectedMovie && (
-        <section
-          className="w-full h-[500px] md:h-[600px] lg:h-[480px] flex flex-col justify-end p-8 bg-cover bg-no-repeat bg-center mb-10 mt-4"
-          style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${selectedMovie.poster_path})`,
-          }}
-        >
-          <div className="bg-black/60 p-6 rounded-lg max-w-2xl text-white">
-            <h2 className="text-4xl font-bold mb-2">{selectedMovie.title}</h2>
-            <p className="text-yellow-400 font-semibold text-lg mb-2">
-              ⭐ {selectedMovie.vote_average}
-            </p>
-            <p className="text-gray-300">{selectedMovie.overview}</p>
-          </div>
-        </section>
-      )}
     </div>
   );
 }
