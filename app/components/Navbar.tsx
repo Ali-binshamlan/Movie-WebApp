@@ -50,7 +50,10 @@ export default function Navbar() {
 
         {/*LOGIN */}
         <div className="hidden md:flex items-center gap-4">
-          <button className="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">
+          <button
+            className="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500"
+            onClick={() => window.location.href = '/auth/login'}
+          >
             Login
           </button>
           {/* <img
