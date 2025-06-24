@@ -7,7 +7,7 @@ export default function Banner() {
     <>
       <section
         className="w-full h-2/4 md:h-[400px] lg:h-[900px] bg-cover bg-center bg-no-repeat flex flex-col px-4 md:px-16 lg:px-8 "
-        style={{ backgroundImage: "url('/banner.png')" }}
+        style={{ backgroundImage: "url('/BANNER.png')" }}
       >
         <div className="md:flex md:flex-col text-center md:text-left text-white md:max-w-3/4 gap-16 ">
           <h1 className="text-2xl mt-4 md:text-7xl font-extrabold md:text-left md:mt-24">
