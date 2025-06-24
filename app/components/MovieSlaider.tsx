@@ -55,7 +55,10 @@ export default function MovieSlider({
           prevEl: null,
         }}
         onBeforeInit={(swiper) => {
-          if (typeof swiper.params.navigation !== "boolean") {
+          if (
+            swiper.params.navigation &&
+            typeof swiper.params.navigation !== "boolean"
+          ) {
             swiper.params.navigation.nextEl = nextRef.current;
           }
         }}
