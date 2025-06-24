@@ -4,7 +4,7 @@ import MovieSRow from "./components/MovieRow";
 import MovieRowBigCard from "./components/MoviesRowBigCard";
 import GenresSection from "./components/GenresSection";
 import MovieSlider_tow from "./components/MovieSlaider_tow";
-import { MovieCategory } from "./services/movieService"; // تأكد من المسار الصحيح
+import { MovieCategory } from "./services/movieService";
 
 export default function Page() {
   return (
