@@ -53,11 +53,11 @@ export default function Navbar() {
           <button className="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">
             Login
           </button>
-          <img
+          {/* <img
             className="w-10 h-10 rounded-full border-2 border-color-primary-base"
             src="https://placehold.co/40x40"
             alt="User avatar"
-          />
+          /> */}
         </div>
 
         {/* MENU */}

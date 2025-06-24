@@ -78,19 +78,21 @@ export default function MovieSlider({
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
               onClick={() => setSelectedMovie(movie)}
-              className="min-w-[300px] h-[170px] rounded-lg shadow-lg cursor-pointer"
+              className="w-full h-full md:min-w-[300px] md:h-[170px] rounded-lg shadow-lg cursor-pointer"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
           </SwiperSlide>
         ))}
       </Swiper>
       {selectedMovie && (
         <section
-          className="w-full h-[500px] md:h-[600px] lg:h-[480px] flex flex-col justify-end p-8 bg-cover bg-no-repeat bg-center mb-10 mt-4"
+          className="w-full h-[500px] md:h-[600px] lg:h-[480px] flex flex-col justify-end p-8 bg-cover bg-no-repeat bg-center mb-10"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/original${selectedMovie.poster_path})`,
           }}
         >
-          <div className="bg-black/60 p-6 rounded-lg max-w-2xl text-white">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
+          <div className="relative bg-black/60 p-6 rounded-lg max-w-2xl text-white">
             <h2 className="text-4xl font-bold mb-2">{selectedMovie.title}</h2>
             <p className="text-yellow-400 font-semibold text-lg mb-2">
               ⭐ {selectedMovie.vote_average}
