@@ -1,28 +1,32 @@
-import Banner from './components/Banner';
-import MovieSlaider from './components/MovieSlaider';
-import MovieSRow from './components/MovieRow';
-import MovieRowBigCard from './components/MoviesRowBigCard';
-import GenresSection from './components/GenresSection';
-import MovieSlider_tow from './components/MovieSlaider_tow';
+import Banner from "./components/Banner";
+import MovieSlaider from "./components/MovieSlaider";
+import MovieSRow from "./components/MovieRow";
+import MovieRowBigCard from "./components/MoviesRowBigCard";
+import GenresSection from "./components/GenresSection";
+import MovieSlider_tow from "./components/MovieSlaider_tow";
+import { MovieCategory } from "./services/movieService"; // تأكد من المسار الصحيح
 
-export default function page() {
+export default function Page() {
   return (
     <div>
       <Banner />
       <div className="">
-        <MovieSlaider category="popular" title="Popular Movies" />
+        <MovieSlaider category={MovieCategory.POPULAR} title="Popular Movies" />
       </div>
       <div className="container mx-auto px-4">
-        <MovieRowBigCard category="upcoming" title="UPCOMING" />
+        <MovieRowBigCard category={MovieCategory.UPCOMING} title="UPCOMING" />
       </div>
       <div className="container mx-auto px-4">
-        <GenresSection category="top_rated" title="TOP RATED" />
+        <GenresSection />
       </div>
       <div className="">
-        <MovieSlider_tow category="now_playing" title="NOW PLAYING" />
+        <MovieSlider_tow
+          category={MovieCategory.NOW_PLAYING}
+          title="NOW PLAYING"
+        />
       </div>
       <div className="container mx-auto px-4">
-        <MovieRowBigCard category="upcoming" title="UPCOMING" />
+        <MovieRowBigCard category={MovieCategory.UPCOMING} title="UPCOMING" />
       </div>
     </div>
   );

@@ -55,7 +55,11 @@ export default function GenrePage() {
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {movies.map((movie) => (
-            <div key={movie.id} className="rounded overflow-hidden shadow-lg">
+            <Link
+              href={`/movies/${movie.id}`}
+              key={movie.id}
+              className="rounded overflow-hidden shadow-lg block hover:opacity-80 transition"
+            >
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}
@@ -67,7 +71,7 @@ export default function GenrePage() {
                   ⭐ {movie.vote_average}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

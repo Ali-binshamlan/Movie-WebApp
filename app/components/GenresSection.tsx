@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { fetchGenres, Genre } from "../services/movieService";
 import Link from "next/link";
 
+
 export default function GenresSection() {
   const [genres, setGenres] = useState<Genre[]>([]);
 
