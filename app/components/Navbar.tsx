@@ -52,7 +52,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           <button
             className="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500"
-            onClick={() => window.location.href = '/auth/login'}
+            onClick={() => (window.location.href = "/login")}
           >
             Login
           </button>
