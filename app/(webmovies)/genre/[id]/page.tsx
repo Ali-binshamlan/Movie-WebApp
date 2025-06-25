@@ -8,7 +8,7 @@ import {
   fetchGenres,
   Movie,
   Genre,
-} from "../../services/movieService";
+} from "../../../services/movieService";
 
 export default function GenrePage() {
   const params = useParams();
