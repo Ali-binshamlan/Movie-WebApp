@@ -4,12 +4,9 @@ import React, { useEffect, useState } from "react";
 import { fetchRandomMovies, Movie } from "../../services/movieService";
 import { useSearchParams, useRouter } from "next/navigation";
 
-type MovieSliderProps = {
-  title?: string;
-};
 
-export default function Page(props: MovieSliderProps) {
-  const { title } = props;
+
+export default function Page({ }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -52,11 +49,7 @@ export default function Page(props: MovieSliderProps) {
 
   return (
     <div className="mt-10">
-      {title && (
-        <div className="container mx-auto px-4 flex items-center justify-between mb-4">
-          <h3 className="text-4xl font-bold text-white">{title}</h3>
-        </div>
-      )}
+      
 
       {selectedMovie && (
         <section
