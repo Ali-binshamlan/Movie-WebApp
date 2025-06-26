@@ -4,11 +4,12 @@ import React, { useEffect, useState } from "react";
 import { fetchRandomMovies, Movie } from "../../services/movieService";
 import { useSearchParams, useRouter } from "next/navigation";
 
-interface MovieSliderProps {
+type MovieSliderProps = {
   title?: string;
-}
+};
 
-export default function Page({ title }: MovieSliderProps) {
+export default function Page(props: MovieSliderProps) {
+  const { title } = props;
   const router = useRouter();
   const searchParams = useSearchParams();
 
