@@ -8,7 +8,7 @@ interface TvSliderProps {
   title?: string;
 }
 
-export default function page({ title }: TvSliderProps) {
+export default function Page({ title }: TvSliderProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 

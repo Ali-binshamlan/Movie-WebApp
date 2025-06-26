@@ -8,7 +8,7 @@ interface MovieSliderProps {
   title?: string;
 }
 
-export default function page({ title }: MovieSliderProps) {
+export default function Page({ title }: MovieSliderProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
