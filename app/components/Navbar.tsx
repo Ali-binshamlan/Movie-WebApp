@@ -31,20 +31,20 @@ export default function Navbar() {
 
         {/* NAVBAR */}
         <div className="hidden md:flex flex-1 justify-center gap-8 text-sm">
-          <a href="#" className="text-white hover:text-yellow-400">
-            ACCEUIL
+          <a href="/" className="text-white hover:text-yellow-400">
+            HOME
           </a>
-          <a href="#" className="text-white  hover:text-yellow-400">
+          <a href="/movies" className="text-white  hover:text-yellow-400">
             FILMS
           </a>
-          <a href="#" className="text-white hover:text-yellow-400">
+          <a href="tvlives" className="text-white hover:text-yellow-400">
             TV LIVES
           </a>
           <a href="#" className="text-white  hover:text-yellow-400">
-            MES FAVORIS
+            MY FAVORITES
           </a>
           <a href="#" className="text-white hover:text-yellow-400">
-            APROPOS
+            ABOUT
           </a>
         </div>
 
@@ -79,16 +79,16 @@ export default function Navbar() {
             href="#"
             className="block text-white text-lg hover:text-yellow-400"
           >
-            ACCEUIL
+            HOME
           </a>
           <a
-            href="#"
+            href="/movies"
             className="block text-white text-lg hover:text-yellow-400"
           >
             FILMS
           </a>
           <a
-            href="#"
+            href="/tvlives"
             className="block text-white text-lg hover:text-yellow-400"
           >
             TV LIVES
@@ -97,23 +97,26 @@ export default function Navbar() {
             href="#"
             className="block text-white text-lg hover:text-yellow-400"
           >
-            MES FAVORIS
+            MY FAVORITES
           </a>
           <a
             href="#"
             className="block text-white text-lg hover:text-yellow-400"
           >
-            APROPOS
+            ABOUT
           </a>
           <div className="mt-4 flex gap-4 items-center">
-            <button className="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">
+            <button
+              className="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500"
+              onClick={() => (window.location.href = "/login")}
+            >
               Login
             </button>
-            <img
+            {/* <img
               className="w-10 h-10 rounded-full border-2 border-color-primary-base"
               src="https://placehold.co/40x40"
               alt="User avatar"
-            />
+            /> */}
           </div>
         </nav>
       )}

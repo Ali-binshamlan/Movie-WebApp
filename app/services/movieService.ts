@@ -26,6 +26,14 @@ interface FetchMoviesParams {
   language?: string;
 }
 
+export interface TvShow {
+  id: number;
+  name: string;
+  poster_path: string;
+  vote_average: number;
+  overview: string;
+}
+
 export async function fetchMovies({
   type,
   page = 1,
@@ -137,3 +145,55 @@ export async function fetchMoviesByGenre(genreId: number, page = 1, language = "
   }
 }
 
+export async function fetchRandomMovies(page = 1, language = "en-US"): Promise<Movie[]> {
+  try {
+    const url = `${BASE_URL}/discover/movie`;
+    const response = await axios.get(url, {
+      params: {
+        api_key: API_KEY,
+        language,
+        sort_by: "popularity.desc",
+        page,
+      },
+    });
+
+    const movies: Movie[] = response.data.results.map((movie: any) => ({
+      id: movie.id,
+      poster_path: movie.poster_path,
+      title: movie.title,
+      vote_average: movie.vote_average,
+      overview: movie.overview,
+    }));
+
+    return movies;
+  } catch (error) {
+    console.error("Error fetching random movies:", error);
+    return [];
+  }
+}
+
+export async function fetchTvShows(page = 1): Promise<TvShow[]> {
+  try {
+    const url = `${BASE_URL}/tv/popular`; // أو حسب التصنيف المطلوب
+    const response = await axios.get(url, {
+      params: {
+        api_key: API_KEY,
+        language: "en-US",
+        page,
+      },
+    });
+
+    const shows: TvShow[] = response.data.results.map((show: any) => ({
+      id: show.id,
+      poster_path: show.poster_path,
+      name: show.name,
+      vote_average: show.vote_average,
+      overview: show.overview,
+    }));
+
+    return shows;
+  } catch (error) {
+    console.error("Error fetching TV shows:", error);
+    return [];
+  }
+}

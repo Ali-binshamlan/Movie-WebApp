@@ -1,21 +1,21 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { fetchRandomMovies, Movie } from "../../services/movieService";
+import { fetchTvShows, TvShow } from "../../services/movieService";
 import { useSearchParams, useRouter } from "next/navigation";
 
-interface MovieSliderProps {
+interface TvSliderProps {
   title?: string;
 }
 
-export default function page({ title }: MovieSliderProps) {
+export default function page({ title }: TvSliderProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const initialPage = Number(searchParams.get("page")) || 1;
 
-  const [movies, setMovies] = useState<Movie[]>([]);
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [shows, setShows] = useState<TvShow[]>([]);
+  const [selectedShow, setSelectedShow] = useState<TvShow | null>(null);
   const [page, setPage] = useState<number>(initialPage);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -25,16 +25,16 @@ export default function page({ title }: MovieSliderProps) {
     router.push(url.toString());
   };
 
-  const loadMovies = async (pageNumber: number) => {
+  const loadShows = async (pageNumber: number) => {
     setLoading(true);
-    const data = await fetchRandomMovies(pageNumber);
-    setMovies(data);
-    if (data.length > 0) setSelectedMovie(data[0]);
+    const data = await fetchTvShows(pageNumber);
+    setShows(data);
+    if (data.length > 0) setSelectedShow(data[0]);
     setLoading(false);
   };
 
   useEffect(() => {
-    loadMovies(page);
+    loadShows(page);
   }, [page]);
 
   const handleNextPage = () => {
@@ -57,21 +57,21 @@ export default function page({ title }: MovieSliderProps) {
         </div>
       )}
 
-      {selectedMovie && (
+      {selectedShow && (
         <section
           className="w-full h-[500px] md:h-[600px] lg:h-[550px] flex flex-col justify-end p-8 bg-no-repeat bg-center mt-4 relative overflow-hidden"
           style={{
-            backgroundImage: `url(https://image.tmdb.org/t/p/original${selectedMovie.poster_path})`,
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${selectedShow.poster_path})`,
             backgroundSize: "cover",
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
           <div className="relative bg-black/60 p-6 rounded-lg max-w-2xl text-white z-10">
-            <h2 className="text-4xl font-bold mb-2">{selectedMovie.title}</h2>
+            <h2 className="text-4xl font-bold mb-2">{selectedShow.name}</h2>
             <p className="text-yellow-400 font-semibold text-lg mb-2">
-              ⭐ {selectedMovie.vote_average}
+              ⭐ {selectedShow.vote_average}
             </p>
-            <p className="text-white">{selectedMovie.overview}</p>
+            <p className="text-white">{selectedShow.overview}</p>
           </div>
         </section>
       )}
@@ -82,15 +82,15 @@ export default function page({ title }: MovieSliderProps) {
             Loading...
           </div>
         ) : (
-          movies.map((movie) => (
+          shows.map((show) => (
             <div
-              key={movie.id}
+              key={show.id}
               className="relative cursor-pointer shadow-lg hover:scale-105 transition-transform duration-300"
-              onClick={() => setSelectedMovie(movie)}
+              onClick={() => setSelectedShow(show)}
             >
               <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
+                src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
+                alt={show.name}
                 className="w-full h-80 object-cover rounded-lg"
               />
               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/40 to-transparent pointer-events-none rounded-lg" />
