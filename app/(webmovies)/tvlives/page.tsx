@@ -4,11 +4,8 @@ import React, { useEffect, useState } from "react";
 import { fetchTvShows, TvShow } from "../../services/movieService";
 import { useSearchParams, useRouter } from "next/navigation";
 
-interface TvSliderProps {
-  title?: string;
-}
 
-export default function Page({ title }: TvSliderProps) {
+export default function Page({}) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -51,12 +48,7 @@ export default function Page({ title }: TvSliderProps) {
 
   return (
     <div className="mt-10">
-      {title && (
-        <div className="container mx-auto px-4 flex items-center justify-between mb-4">
-          <h3 className="text-4xl font-bold text-white">{title}</h3>
-        </div>
-      )}
-
+    
       {selectedShow && (
         <section
           className="w-full h-[500px] md:h-[600px] lg:h-[550px] flex flex-col justify-end p-8 bg-no-repeat bg-center mt-4 relative overflow-hidden"
