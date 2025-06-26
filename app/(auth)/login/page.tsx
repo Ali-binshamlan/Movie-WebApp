@@ -3,8 +3,13 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-
 import Link from "next/link";
+import { loginUser } from "../../services/authService";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
+import { login } from "../../store/authSlice";
+import { useRouter } from "next/navigation";
+
 type LoginFormData = {
   email: string;
   password: string;
@@ -18,6 +23,9 @@ const loginSchema = Yup.object().shape({
 });
 
 export default function LoginPage() {
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -27,8 +35,13 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    console.log("Login data:", data);
-    // TODO: send data to API
+    try {
+      const result = await loginUser(data);
+      dispatch(login(result.token));
+      router.push("/");
+    } catch (error: any) {
+      alert(error.message || "Login failed");
+    }
   };
 
   return (
@@ -36,7 +49,7 @@ export default function LoginPage() {
       <div className="flex flex-col md:flex-row bg-black rounded-lg shadow-lg overflow-hidden max-w-4xl w-full md:h-auto md:max-h-[90vh]">
         <div className="md:w-1/2 flex items-center justify-center p-8">
           <div className="w-full space-y-6">
-            <div className="flex items-center ml-24">
+            <div className="flex items-center ml-20 md:ml-24">
               <Link href="/">
                 <svg
                   width="200"
@@ -53,9 +66,10 @@ export default function LoginPage() {
                     d="M119.104 24.86C111.328 24.86 107.116 19.964 107.116 12.44C107.116 4.916 111.328 0.0199997 119.104 0.0199997C126.736 0.0199997 130.444 3.98 130.444 9.596V10.424H123.208V10.316C123.208 7.544 122.308 6.608 118.96 6.608C115.504 6.608 114.388 7.436 114.388 12.44C114.388 17.444 115.504 18.272 118.96 18.272C122.308 18.272 123.208 17.336 123.208 14.564V14.456H130.444V15.284C130.444 20.9 126.736 24.86 119.104 24.86ZM137.427 24.5H130.659V0.379999H137.427V9.344H146.463V0.379999H153.231V24.5H146.463V15.428H137.427V24.5ZM161.168 24.5H154.4V0.379999H161.168V24.5ZM181.185 24.5H162.321V0.379999H169.089V18.416H181.185V24.5ZM199.759 24.5H180.895V0.379999H187.663V18.416H199.759V24.5Z"
                     fill="#CC8900"
                   />
-                </svg>
+                </svg>{" "}
               </Link>
             </div>
+
             <h2 className="text-center text-3xl font-bold text-white">
               Sign in to your account
             </h2>
@@ -68,8 +82,8 @@ export default function LoginPage() {
                 <input
                   type="email"
                   {...register("email")}
-                  className={`w-full rounded px-3 py-2 bg-gray-700 text-white border ${
-                    errors.email ? "border-red-500" : "border-gray-600"
+                  className={`w-full rounded-xl px-3 py-2 bg-black text-white border ${
+                    errors.email ? "border-red-500" : "border-white"
                   } focus:outline-none focus:ring-2 focus:ring-yellow-400`}
                   placeholder="you@example.com"
                 />
@@ -87,8 +101,8 @@ export default function LoginPage() {
                 <input
                   type="password"
                   {...register("password")}
-                  className={`w-full rounded px-3 py-2 bg-gray-700 text-white border ${
-                    errors.password ? "border-red-500" : "border-gray-600"
+                  className={`w-full rounded-xl px-3 py-2 bg-black text-white border ${
+                    errors.password ? "border-red-500" : "border-white"
                   } focus:outline-none focus:ring-2 focus:ring-yellow-400`}
                   placeholder="••••••••"
                 />
@@ -103,7 +117,6 @@ export default function LoginPage() {
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full bg-yellow-400 text-black py-2 rounded hover:bg-yellow-500 font-semibold transition"
-                onClick={() => (window.location.href = "/")}
               >
                 {isSubmitting ? "Signing in..." : "Sign In"}
               </button>
@@ -111,9 +124,12 @@ export default function LoginPage() {
 
             <p className="text-center text-sm text-gray-400">
               Don&apos;t have an account?{" "}
-              <a href="/register" className="text-yellow-400 hover:underline">
+              <Link
+                href="/register"
+                className="text-yellow-400 hover:underline"
+              >
                 Register here
-              </a>
+              </Link>
             </p>
           </div>
         </div>

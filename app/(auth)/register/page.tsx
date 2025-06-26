@@ -40,7 +40,7 @@ export default function RegisterPage() {
       <div className="flex flex-col md:flex-row bg-black rounded-lg shadow-lg overflow-hidden max-w-4xl w-full md:h-auto md:max-h-[90vh]">
         <div className="md:w-1/2 flex items-center justify-center p-8">
           <div className="w-full space-y-6">
-            <div className="flex items-center ml-24">
+            <div className="flex items-center ml-16 md:ml-24">
               <Link href="/">
                 <svg
                   width="200"
@@ -72,7 +72,7 @@ export default function RegisterPage() {
                 <input
                   type="text"
                   {...register("fullName")}
-                  className={`w-full rounded px-3 py-2 bg-gray-700 text-white border ${
+                  className={`w-full rounded-xl px-3 py-2 bg-black text-white border border-white ${
                     errors.fullName ? "border-red-500" : "border-gray-600"
                   } focus:outline-none focus:ring-2 focus:ring-yellow-400`}
                   placeholder="Your Name"
@@ -91,7 +91,7 @@ export default function RegisterPage() {
                 <input
                   type="email"
                   {...register("email")}
-                  className={`w-full rounded px-3 py-2 bg-gray-700 text-white border ${
+                  className={`w-full rounded-xl px-3 py-2 bg-black text-white border border-white ${
                     errors.email ? "border-red-500" : "border-gray-600"
                   } focus:outline-none focus:ring-2 focus:ring-yellow-400`}
                   placeholder="you@example.com"
@@ -110,7 +110,7 @@ export default function RegisterPage() {
                 <input
                   type="password"
                   {...register("password")}
-                  className={`w-full rounded px-3 py-2 bg-gray-700 text-white border ${
+                  className={`w-full rounded-xl px-3 py-2 bg-black text-white border border-white ${
                     errors.password ? "border-red-500" : "border-gray-600"
                   } focus:outline-none focus:ring-2 focus:ring-yellow-400`}
                   placeholder="••••••••"
