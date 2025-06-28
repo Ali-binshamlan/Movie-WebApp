@@ -95,9 +95,9 @@ export default function Navbar() {
           <a href="/tvlives" className="text-white hover:text-yellow-400">
             TV LIVES
           </a>
-          <a href="#" className="text-white hover:text-yellow-400">
+          {/* <a href="#" className="text-white hover:text-yellow-400">
             MY FAVORITES
-          </a>
+          </a> */}
         </div>
 
         {/* LOGIN / LOGOUT */}
@@ -111,7 +111,7 @@ export default function Navbar() {
             </button>
           ) : (
             <>
-              <span className="text-white">Welcome!</span>
+              <span className="text-white"></span>
               <button
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
                 onClick={handleLogout}
@@ -152,12 +152,12 @@ export default function Navbar() {
           >
             TV LIVES
           </a>
-          <a
+          {/* <a
             href="#"
             className="block text-white text-lg hover:text-yellow-400"
           >
             MY FAVORITES
-          </a>
+          </a> */}
 
           <div className="mt-4 flex gap-4 items-center">
             {!isAuthenticated ? (
