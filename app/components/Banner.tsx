@@ -14,12 +14,7 @@ export default function Banner() {
             MADAME WEB
           </h1>
           <p className="text-xs mt-4 md:text-sm lg:text-base font-light text-gray-300 md:w-3/4">
-            Pendant ce temps, dans un autre univers Dans une variation du genre
-            classique, Madame Web raconte les origines de l'une des plus
-            énigmatiques héroïnes des bandes dessinées Marvel. Le suspense met
-            en vedette Dakota Johnson dans le rôle de Cassandra Webb, une
-            ambulancière de Manhattan ayant des dons de voyance. Contrainte de
-            faire face à des révélations sur son passé, elle
+          In a twist on the classic genre, Madame Web tells the origin story of one of Marvel’s most enigmatic heroines. The suspenseful tale stars Dakota Johnson as Cassandra Webb, a Manhattan paramedic who possesses clairvoyant abilities. Forced to confront revelations about her past
           </p>
           <button className="bg-yellow-400 text-black px-6 py-2 md:py-4 rounded hover:bg-yellow-500 transition mt-4 text-sm md:text-lg md:w-1/4">
             Explore Now
